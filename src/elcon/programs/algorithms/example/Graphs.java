@@ -1,6 +1,7 @@
 package elcon.programs.algorithms.example;
 
 import elcon.programs.algorithms.graph.Graph;
+import elcon.programs.algorithms.graph.WeightedDirectedGraph;
 import elcon.programs.algorithms.graph.WeightedGraph;
 
 public class Graphs {
@@ -23,7 +24,21 @@ public class Graphs {
 		weightedGraph.addEdge('C', 'A', 5);
 		
 		System.out.println(weightedGraph.containsEdge('A', 'B'));
+		System.out.println(weightedGraph.containsEdge('A', 'B', 3));
 		System.out.println(weightedGraph.edgesTo('C'));
+		System.out.println();
+		
+		WeightedDirectedGraph<Character, Integer> weightedDirectedGraph = new WeightedDirectedGraph<Character, Integer>();
+		weightedDirectedGraph.addNode('A');
+		weightedDirectedGraph.addNode('B');
+		weightedDirectedGraph.addNode('C');
+		weightedDirectedGraph.addEdge('A', 'B', 4);
+		weightedDirectedGraph.addEdge('B', 'C', 3);
+		weightedDirectedGraph.addEdge('C', 'A', 5);
+		
+		System.out.println(weightedDirectedGraph.containsEdge('A', 'B', 3));
+		System.out.println(weightedDirectedGraph.containsEdge('A', 'B', 4));
+		System.out.println(weightedDirectedGraph.edgesTo('C'));
 		System.out.println();
 	}
 }
