@@ -1,18 +1,18 @@
 package elcon.programs.algorithms.graph;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 
-	public HashMap<N, ArrayList<WeightedEdge<N, W>>> nodes = new HashMap<N, ArrayList<WeightedEdge<N, W>>>();
+	public HashMap<N, LinkedList<WeightedEdge<N, W>>> nodes = new HashMap<N, LinkedList<WeightedEdge<N, W>>>();
 	
 	@Override
 	public void addNode(N node) {
 		if(!containsNode(node)) {
-			nodes.put(node, new ArrayList<WeightedEdge<N, W>>());
+			nodes.put(node, new LinkedList<WeightedEdge<N, W>>());
 		}
 	}
 	
@@ -122,7 +122,7 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 
 	@Override
 	public List<N> getNodes() {
-		ArrayList<N> list = new ArrayList<N>();
+		LinkedList<N> list = new LinkedList<N>();
 		if(nodes.keySet() != null) {
 			for(N node : nodes.keySet()) {
 				list.add(node);
@@ -132,29 +132,43 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 	}
 	
 	@Override
-	public List<WeightedEdge<N, W>> edgesFrom(N from) {
-		ArrayList<WeightedEdge<N, W>> list = new ArrayList<WeightedEdge<N, W>>();
-		if(containsNode(from)) {
-			for(WeightedEdge<N, W> edge : nodes.get(from)) {
-				list.add(edge);
+	public List<WeightedEdge<N, W>> edgesFrom(N... fromList) {
+		LinkedList<WeightedEdge<N, W>> list = new LinkedList<WeightedEdge<N, W>>();
+		if(fromList.length == 1) {
+			N from = fromList[0];
+			if(containsNode(from)) {
+				for(WeightedEdge<N, W> edge : nodes.get(from)) {
+					list.add(edge);
+				}
+			}
+		} else if(fromList.length > 1) {
+			for(int i = 0; i < fromList.length; i++) {
+				edgesFrom(fromList[i]);
 			}
 		}
 		return list;
 	}
 	
 	@Override
-	public List<WeightedEdge<N, W>> edgesTo(N to) {
-		ArrayList<WeightedEdge<N, W>> list = new ArrayList<WeightedEdge<N, W>>();
-		if(containsNode(to)) {
-			for(N node : getNodes()) {
-				if(!node.equals(to)) {
-					List<WeightedEdge<N, W>> edgesFrom = edgesFrom(node);
-					for(WeightedEdge<N, W> edge : edgesFrom) {
-						if(edge.to.equals(to)) {
-							list.add(edge);
+	public List<WeightedEdge<N, W>> edgesTo(N... toList) {
+		LinkedList<WeightedEdge<N, W>> list = new LinkedList<WeightedEdge<N, W>>();
+		if(toList.length == 1) {
+			N to = toList[0];
+			if(containsNode(to)) {
+				for(N node : getNodes()) {
+					if(!node.equals(to)) {
+						List<WeightedEdge<N, W>> edgesFrom = edgesFrom(node);
+						for(WeightedEdge<N, W> edge : edgesFrom) {
+							if(edge.to.equals(to)) {
+								list.add(edge);
+							}
 						}
 					}
 				}
+			}
+		} else if(toList.length > 1) {
+			for(int i = 0; i < toList.length; i++) {
+				edgesTo(toList[i]);
 			}
 		}
 		return list;
@@ -162,7 +176,7 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 	
 	@Override
 	public List<WeightedEdge<N, W>> edgesBetween(N from, N to) {
-		ArrayList<WeightedEdge<N, W>> list = new ArrayList<WeightedEdge<N, W>>();
+		LinkedList<WeightedEdge<N, W>> list = new LinkedList<WeightedEdge<N, W>>();
 		if(containsNode(from)) {
 			List<WeightedEdge<N, W>> edgesFrom = edgesFrom(from);
 			for(WeightedEdge<N, W> edge : edgesFrom) {

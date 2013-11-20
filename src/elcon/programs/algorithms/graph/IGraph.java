@@ -28,9 +28,9 @@ public interface IGraph<N> extends Iterable<N> {
 	
 	public List<N> getNodes();
 	
-	public List<Edge<N>> edgesFrom(N from);
+	public List<Edge<N>> edgesFrom(N... from);
 	
-	public List<Edge<N>> edgesTo(N to);
+	public List<Edge<N>> edgesTo(N... to);
 	
 	public List<Edge<N>> edgesBetween(N to, N from);
 

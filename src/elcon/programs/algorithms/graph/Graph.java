@@ -1,18 +1,18 @@
 package elcon.programs.algorithms.graph;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Graph<N> implements IGraph<N> {
 
-	public HashMap<N, ArrayList<Edge<N>>> nodes = new HashMap<N, ArrayList<Edge<N>>>();
+	public HashMap<N, LinkedList<Edge<N>>> nodes = new HashMap<N, LinkedList<Edge<N>>>();
 	
 	@Override
 	public void addNode(N node) {
 		if(!containsNode(node)) {
-			nodes.put(node, new ArrayList<Edge<N>>());
+			nodes.put(node, new LinkedList<Edge<N>>());
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class Graph<N> implements IGraph<N> {
 
 	@Override
 	public List<N> getNodes() {
-		ArrayList<N> list = new ArrayList<N>();
+		LinkedList<N> list = new LinkedList<N>();
 		if(nodes.keySet() != null) {
 			for(N node : nodes.keySet()) {
 				list.add(node);
@@ -117,29 +117,43 @@ public class Graph<N> implements IGraph<N> {
 	}
 	
 	@Override
-	public List<Edge<N>> edgesFrom(N from) {
-		ArrayList<Edge<N>> list = new ArrayList<Edge<N>>();
-		if(containsNode(from)) {
-			for(Edge<N> edge : nodes.get(from)) {
-				list.add(edge);
+	public List<Edge<N>> edgesFrom(N... fromList) {
+		LinkedList<Edge<N>> list = new LinkedList<Edge<N>>();
+		if(fromList.length == 1) {
+			N from = fromList[0];
+			if(containsNode(from)) {
+				for(Edge<N> edge : nodes.get(from)) {
+					list.add(edge);
+				}
+			}
+		} else if(fromList.length > 1) {
+			for(int i = 0; i < fromList.length; i++) {
+				edgesFrom(fromList[i]);
 			}
 		}
 		return list;
 	}
 	
 	@Override
-	public List<Edge<N>> edgesTo(N to) {
-		ArrayList<Edge<N>> list = new ArrayList<Edge<N>>();
-		if(containsNode(to)) {
-			for(N node : getNodes()) {
-				if(!node.equals(to)) {
-					List<Edge<N>> edgesFrom = edgesFrom(node);
-					for(Edge<N> edge : edgesFrom) {
-						if(edge.to.equals(to)) {
-							list.add(edge);
+	public List<Edge<N>> edgesTo(N... toList) {
+		LinkedList<Edge<N>> list = new LinkedList<Edge<N>>();
+		if(toList.length == 1) {
+			N to = toList[0];
+			if(containsNode(to)) {
+				for(N node : getNodes()) {
+					if(!node.equals(to)) {
+						List<Edge<N>> edgesFrom = edgesFrom(node);
+						for(Edge<N> edge : edgesFrom) {
+							if(edge.to.equals(to)) {
+								list.add(edge);
+							}
 						}
 					}
 				}
+			}
+		} else if(toList.length > 1) {
+			for(int i = 0; i < toList.length; i++) {
+				edgesTo(toList[i]);
 			}
 		}
 		return list;
@@ -147,7 +161,7 @@ public class Graph<N> implements IGraph<N> {
 	
 	@Override
 	public List<Edge<N>> edgesBetween(N from, N to) {
-		ArrayList<Edge<N>> list = new ArrayList<Edge<N>>();
+		LinkedList<Edge<N>> list = new LinkedList<Edge<N>>();
 		if(containsNode(from)) {
 			List<Edge<N>> edgesFrom = edgesFrom(from);
 			for(Edge<N> edge : edgesFrom) {
