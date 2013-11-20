@@ -159,6 +159,20 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<WeightedEdge<N, W>> edgesBetween(N from, N to) {
+		ArrayList<WeightedEdge<N, W>> list = new ArrayList<WeightedEdge<N, W>>();
+		if(containsNode(from)) {
+			List<WeightedEdge<N, W>> edgesFrom = edgesFrom(from);
+			for(WeightedEdge<N, W> edge : edgesFrom) {
+				if(edge.to.equals(to)) {
+					list.add(edge);
+				}
+			}
+		}
+		return list;
+	}
 
 	@Override
 	public Iterator<N> iterator() {

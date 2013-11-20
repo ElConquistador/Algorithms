@@ -144,6 +144,20 @@ public class Graph<N> implements IGraph<N> {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<Edge<N>> edgesBetween(N from, N to) {
+		ArrayList<Edge<N>> list = new ArrayList<Edge<N>>();
+		if(containsNode(from)) {
+			List<Edge<N>> edgesFrom = edgesFrom(from);
+			for(Edge<N> edge : edgesFrom) {
+				if(edge.to.equals(to)) {
+					list.add(edge);
+				}
+			}
+		}
+		return list;
+	}
 
 	@Override
 	public Iterator<N> iterator() {
