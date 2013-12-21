@@ -1,5 +1,6 @@
 package elcon.programs.algorithms.example;
 
+import elcon.programs.algorithms.graph.DijkstraAlgorithm;
 import elcon.programs.algorithms.graph.Graph;
 import elcon.programs.algorithms.graph.WeightedDirectedGraph;
 import elcon.programs.algorithms.graph.WeightedGraph;
@@ -40,5 +41,25 @@ public class Graphs {
 		System.out.println(weightedDirectedGraph.containsEdge('A', 'B', 4));
 		System.out.println(weightedDirectedGraph.edgesTo('C'));
 		System.out.println();
+		
+		WeightedGraph<Character, Number> weightedGraph2 = new WeightedGraph<Character, Number>();
+		weightedGraph2.addNode('A');
+		weightedGraph2.addNode('B');
+		weightedGraph2.addNode('C');
+		weightedGraph2.addNode('D');
+		weightedGraph2.addNode('E');
+		weightedGraph2.addNode('F');
+		weightedGraph2.addEdge('A', 'B', 7);
+		weightedGraph2.addEdge('A', 'C', 9);
+		weightedGraph2.addEdge('A', 'F', 14);
+		weightedGraph2.addEdge('B', 'C', 10);
+		weightedGraph2.addEdge('B', 'D', 15);
+		weightedGraph2.addEdge('C', 'D', 11);
+		weightedGraph2.addEdge('C', 'F', 2);
+		weightedGraph2.addEdge('D', 'E', 6);
+		weightedGraph2.addEdge('E', 'F', 9);
+		
+		DijkstraAlgorithm<Character> dijkstra = new DijkstraAlgorithm<Character>(weightedGraph2, 'A', 'E');
+		System.out.println(dijkstra.getPathString());
 	}
 }
