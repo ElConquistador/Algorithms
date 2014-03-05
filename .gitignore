@@ -1,6 +1,19 @@
-*.class
+## Eclipse
+/eclipse
+/.settings
+/.metadata
+/.classpath
+/.project
+/bin
 
-# Package Files #
-*.jar
-*.war
-*.ear
+## IntelliJ
+/out
+/.idea
+/*.iml
+/*.ipr
+/*.iws
+/atlassian-ide-plugin.xml
+
+## Project
+/lib
+/releases
