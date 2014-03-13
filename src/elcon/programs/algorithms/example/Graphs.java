@@ -14,6 +14,7 @@ public class Graphs {
 		graph.addEdge('A', 'B');
 		System.out.println(graph.containsEdge('A', 'B'));
 		System.out.println(graph.containsEdge('B', 'A'));
+		System.out.println(graph.areConnected('A', 'B'));
 		System.out.println();
 		
 		WeightedGraph<Character, Integer> weightedGraph = new WeightedGraph<Character, Integer>();
@@ -27,6 +28,7 @@ public class Graphs {
 		System.out.println(weightedGraph.containsEdge('A', 'B'));
 		System.out.println(weightedGraph.containsEdge('A', 'B', 3));
 		System.out.println(weightedGraph.edgesTo('C'));
+		System.out.println(weightedGraph.areConnected('A', 'C'));
 		System.out.println();
 		
 		WeightedDirectedGraph<Character, Integer> weightedDirectedGraph = new WeightedDirectedGraph<Character, Integer>();
@@ -40,6 +42,7 @@ public class Graphs {
 		System.out.println(weightedDirectedGraph.containsEdge('A', 'B', 3));
 		System.out.println(weightedDirectedGraph.containsEdge('A', 'B', 4));
 		System.out.println(weightedDirectedGraph.edgesTo('C'));
+		System.out.println(weightedDirectedGraph.areConnected('A', 'C'));
 		System.out.println();
 		
 		WeightedGraph<Character, Number> weightedGraph2 = new WeightedGraph<Character, Number>();

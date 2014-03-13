@@ -1,5 +1,6 @@
 package elcon.programs.algorithms.graph;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -171,6 +172,42 @@ public class Graph<N> implements IGraph<N> {
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public boolean areConnected(N... nodes) {
+		ArrayList<N> nodeList = new ArrayList<N>();
+		for(int i = 0; i < nodes.length; i++) {
+			nodeList.add(nodes[i]);
+		}
+		nodeList.remove(nodes[0]);
+		List<N> found = searchConnections(nodes[0], nodeList, new ArrayList<N>());
+		for(N node : nodeList) {
+			if(!found.contains(node)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private List<N> searchConnections(N current, List<N> nodes, List<N> found) {
+		List<Edge<N>> edges = edgesFrom(current);
+		for(Edge<N> edge : edges) {
+			if(nodes.contains(edge.to)) {
+				nodes.remove(edge.to);
+				found.add(edge.to);
+				found = searchConnections(edge.to, nodes, found);
+			}
+		}
+		edges = edgesTo(current);
+		for(Edge<N> edge : edges) {
+			if(nodes.contains(edge.from)) {
+				nodes.remove(edge.from);
+				found.add(edge.from);
+				found = searchConnections(edge.from, nodes, found);
+			}
+		}
+		return found;
 	}
 
 	@Override

@@ -38,6 +38,8 @@ public interface IWeightedGraph<N, W> extends Iterable<N> {
 	
 	public List<WeightedEdge<N, W>> edgesBetween(N from, N to);
 
+	public boolean areConnected(N... nodes);
+	
 	public int size();
 
 	public boolean isEmpty();
