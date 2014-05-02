@@ -55,6 +55,10 @@ public class DijkstraAlgorithm<N> {
 		Collections.reverse(tempPath);
 		path = tempPath;
 	}
+	
+	public ArrayList<Node<N>> getPath() {
+		return path;
+	}
 
 	public String getPathString() {
 		StringBuilder sb = new StringBuilder();

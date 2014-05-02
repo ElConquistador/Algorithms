@@ -2,6 +2,7 @@ package elcon.programs.algorithms.example;
 
 import elcon.programs.algorithms.graph.DijkstraAlgorithm;
 import elcon.programs.algorithms.graph.Graph;
+import elcon.programs.algorithms.graph.PrimAlgorithm;
 import elcon.programs.algorithms.graph.WeightedDirectedGraph;
 import elcon.programs.algorithms.graph.WeightedGraph;
 
@@ -64,5 +65,10 @@ public class Graphs {
 		
 		DijkstraAlgorithm<Character> dijkstra = new DijkstraAlgorithm<Character>(weightedGraph2, 'A', 'E');
 		System.out.println(dijkstra.getPathString());
+		System.out.println();
+		
+		PrimAlgorithm<Character> prim = new PrimAlgorithm<Character>(weightedGraph2);
+		System.out.println("Edges: " + weightedGraph2.edgesFrom(weightedGraph2.getNodes().toArray(new Character[weightedGraph2.getNodes().size()])).size());
+		System.out.println("Minimum Edges: " + prim.getMinimumWeightedGraph().edgesFrom(prim.getMinimumWeightedGraph().getNodes().toArray(new Character[prim.getMinimumWeightedGraph().getNodes().size()])).size());
 	}
 }

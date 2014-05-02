@@ -123,13 +123,11 @@ public class Graph<N> implements IGraph<N> {
 		if(fromList.length == 1) {
 			N from = fromList[0];
 			if(containsNode(from)) {
-				for(Edge<N> edge : nodes.get(from)) {
-					list.add(edge);
-				}
+				list.addAll(nodes.get(from));
 			}
 		} else if(fromList.length > 1) {
 			for(int i = 0; i < fromList.length; i++) {
-				edgesFrom(fromList[i]);
+				list.addAll(edgesFrom(fromList[i]));
 			}
 		}
 		return list;
@@ -154,7 +152,7 @@ public class Graph<N> implements IGraph<N> {
 			}
 		} else if(toList.length > 1) {
 			for(int i = 0; i < toList.length; i++) {
-				edgesTo(toList[i]);
+				list.addAll(edgesTo(toList[i]));
 			}
 		}
 		return list;
