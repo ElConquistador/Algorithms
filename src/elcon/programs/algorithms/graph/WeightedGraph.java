@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
-
+	
 	public HashMap<N, LinkedList<WeightedEdge<N, W>>> nodes = new HashMap<N, LinkedList<WeightedEdge<N, W>>>();
 	
 	@Override
@@ -128,6 +128,15 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 			for(N node : nodes.keySet()) {
 				list.add(node);
 			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<WeightedEdge<N, W>> getEdges() {
+		LinkedList<WeightedEdge<N, W>> list = new LinkedList<WeightedEdge<N, W>>();
+		for(List<WeightedEdge<N, W>> edges : nodes.values()) {
+			list.addAll(edges);
 		}
 		return list;
 	}

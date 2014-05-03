@@ -38,8 +38,6 @@ public class PrimAlgorithm<N> {
 			if(bestEdge != null) {
 				minimumGraph.addNode(bestEdge.to);
 				minimumGraph.addEdge(bestEdge.from, bestEdge.to, bestEdge.weight);
-			} else {
-				break;
 			}
 		}
 		result = minimumGraph;

@@ -2,6 +2,8 @@ package elcon.programs.algorithms.example;
 
 import elcon.programs.algorithms.graph.DijkstraAlgorithm;
 import elcon.programs.algorithms.graph.Graph;
+import elcon.programs.algorithms.graph.IWeightedGraph;
+import elcon.programs.algorithms.graph.KruskalAlgorithm;
 import elcon.programs.algorithms.graph.PrimAlgorithm;
 import elcon.programs.algorithms.graph.WeightedDirectedGraph;
 import elcon.programs.algorithms.graph.WeightedGraph;
@@ -68,7 +70,15 @@ public class Graphs {
 		System.out.println();
 		
 		PrimAlgorithm<Character> prim = new PrimAlgorithm<Character>(weightedGraph2);
-		System.out.println("Edges: " + weightedGraph2.edgesFrom(weightedGraph2.getNodes().toArray(new Character[weightedGraph2.getNodes().size()])).size());
-		System.out.println("Minimum Edges: " + prim.getMinimumWeightedGraph().edgesFrom(prim.getMinimumWeightedGraph().getNodes().toArray(new Character[prim.getMinimumWeightedGraph().getNodes().size()])).size());
+		System.out.println("Edges: " + (weightedGraph2.getEdges().size() / 2));
+		System.out.println("Minimum Edges: " + (prim.getMinimumWeightedGraph().getEdges().size() / 2));
+		System.out.println();
+		
+		KruskalAlgorithm<Character> kruskal = new KruskalAlgorithm<Character>(weightedGraph2);		
+		System.out.println("Edges: " + (weightedGraph2.getEdges().size() / 2));
+		for(IWeightedGraph<Character, Number> tree : kruskal.getMinimumWeightedGraphs()) {
+			System.out.println("Minimum Edges: " + (tree.getEdges().size() / 2));
+		}
+		System.out.println();
 	}
 }

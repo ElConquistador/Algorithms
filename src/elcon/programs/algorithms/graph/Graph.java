@@ -118,6 +118,15 @@ public class Graph<N> implements IGraph<N> {
 	}
 	
 	@Override
+	public List<Edge<N>> getEdges() {
+		LinkedList<Edge<N>> list = new LinkedList<Edge<N>>();
+		for(List<Edge<N>> edges : nodes.values()) {
+			list.addAll(edges);
+		}
+		return list;
+	}
+	
+	@Override
 	public List<Edge<N>> edgesFrom(N... fromList) {
 		LinkedList<Edge<N>> list = new LinkedList<Edge<N>>();
 		if(fromList.length == 1) {
