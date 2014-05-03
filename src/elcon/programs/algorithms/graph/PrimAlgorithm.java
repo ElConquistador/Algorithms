@@ -7,7 +7,7 @@ public class PrimAlgorithm<N> {
 	public Object result;
 	
 	public PrimAlgorithm(IGraph<N> graph) {
-		Graph<N> minimumGraph = new Graph<N>();
+		Graph<N> minimumGraph = new Graph<N>(graph.isDirected());
 		minimumGraph.addNode(graph.getNodes().get(0));
 		while(!minimumGraph.getNodes().containsAll(graph.getNodes())) {
 			List<Edge<N>> edges = graph.edgesFrom(minimumGraph.getNodes().toArray((N[]) new Object[minimumGraph.getNodes().size()]));
@@ -23,7 +23,7 @@ public class PrimAlgorithm<N> {
 	}
 	
 	public PrimAlgorithm(IWeightedGraph<N, Number> graph) {
-		WeightedGraph<N, Number> minimumGraph = new WeightedGraph<N, Number>();
+		WeightedGraph<N, Number> minimumGraph = new WeightedGraph<N, Number>(graph.isDirected());
 		minimumGraph.addNode(graph.getNodes().get(0));
 		while(!minimumGraph.getNodes().containsAll(graph.getNodes())) {
 			List<WeightedEdge<N, Number>> edges = graph.edgesFrom(minimumGraph.getNodes().toArray((N[]) new Object[minimumGraph.getNodes().size()]));
@@ -38,6 +38,21 @@ public class PrimAlgorithm<N> {
 			if(bestEdge != null) {
 				minimumGraph.addNode(bestEdge.to);
 				minimumGraph.addEdge(bestEdge.from, bestEdge.to, bestEdge.weight);
+			} else if(graph.isDirected()) {
+				edges = graph.edgesTo(minimumGraph.getNodes().toArray((N[]) new Object[minimumGraph.getNodes().size()]));
+				edges.removeAll(minimumGraph.getEdges());
+				best = Double.MAX_VALUE;
+				bestEdge = null;
+				for(WeightedEdge<N, Number> edge : edges) {
+					if(edge.weight.doubleValue() < best && !minimumGraph.containsNode(edge.from)) {
+						best = edge.weight.doubleValue();
+						bestEdge = edge;
+					}
+				}
+				if(bestEdge != null) {
+					minimumGraph.addNode(bestEdge.from);
+					minimumGraph.addEdge(bestEdge.from, bestEdge.to, bestEdge.weight);
+				}
 			}
 		}
 		result = minimumGraph;

@@ -6,11 +6,10 @@ import elcon.programs.algorithms.graph.Graph;
 import elcon.programs.algorithms.graph.IWeightedGraph;
 import elcon.programs.algorithms.graph.KruskalAlgorithm;
 import elcon.programs.algorithms.graph.PrimAlgorithm;
-import elcon.programs.algorithms.graph.WeightedDirectedGraph;
 import elcon.programs.algorithms.graph.WeightedGraph;
 
 public class Graphs {
-
+	
 	public static void main(String[] args) {
 		Graph<Character> graph = new Graph<Character>();
 		graph.addNode('A');
@@ -35,7 +34,7 @@ public class Graphs {
 		System.out.println(weightedGraph.areConnected('A', 'C'));
 		System.out.println();
 		
-		WeightedDirectedGraph<Character, Integer> weightedDirectedGraph = new WeightedDirectedGraph<Character, Integer>();
+		WeightedGraph<Character, Integer> weightedDirectedGraph = new WeightedGraph<Character, Integer>(true);
 		weightedDirectedGraph.addNode('A');
 		weightedDirectedGraph.addNode('B');
 		weightedDirectedGraph.addNode('C');
@@ -83,6 +82,35 @@ public class Graphs {
 		System.out.println("Edges: " + (weightedGraph2.getEdges().size() / 2));
 		for(IWeightedGraph<Character, Number> tree : kruskal.getMinimumWeightedGraphs()) {
 			System.out.println("Minimum Edges: " + (tree.getEdges().size() / 2));
+		}
+		System.out.println();
+		
+		WeightedGraph<Character, Number> weightedDirectedGraph2 = new WeightedGraph<Character, Number>(true);
+		weightedDirectedGraph2.addNode('A');
+		weightedDirectedGraph2.addNode('B');
+		weightedDirectedGraph2.addNode('C');
+		weightedDirectedGraph2.addNode('D');
+		weightedDirectedGraph2.addNode('E');
+		weightedDirectedGraph2.addNode('F');
+		weightedDirectedGraph2.addEdge('A', 'B', 7);
+		weightedDirectedGraph2.addEdge('A', 'C', 9);
+		weightedDirectedGraph2.addEdge('A', 'F', 14);
+		weightedDirectedGraph2.addEdge('B', 'C', 10);
+		weightedDirectedGraph2.addEdge('B', 'D', 15);
+		weightedDirectedGraph2.addEdge('C', 'D', 11);
+		weightedDirectedGraph2.addEdge('C', 'F', 2);
+		weightedDirectedGraph2.addEdge('D', 'E', 6);
+		weightedDirectedGraph2.addEdge('E', 'F', 9);
+		
+		PrimAlgorithm<Character> prim2 = new PrimAlgorithm<Character>(weightedDirectedGraph2);
+		System.out.println("Edges: " + weightedDirectedGraph2.getEdges().size());
+		System.out.println("Minimum Edges: " + prim2.getMinimumWeightedGraph().getEdges().size());
+		System.out.println();
+		
+		KruskalAlgorithm<Character> kruskal2 = new KruskalAlgorithm<Character>(weightedDirectedGraph2);		
+		System.out.println("Edges: " + weightedDirectedGraph2.getEdges().size());
+		for(IWeightedGraph<Character, Number> tree : kruskal2.getMinimumWeightedGraphs()) {
+			System.out.println("Minimum Edges: " + tree.getEdges().size());
 		}
 		System.out.println();
 	}

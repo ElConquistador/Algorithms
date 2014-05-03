@@ -9,6 +9,15 @@ import java.util.List;
 public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 	
 	public HashMap<N, LinkedList<WeightedEdge<N, W>>> nodes = new HashMap<N, LinkedList<WeightedEdge<N, W>>>();
+	public boolean isDirected;
+	
+	public WeightedGraph() {
+		this(false);
+	}
+	
+	public WeightedGraph(boolean isDirected) {
+		this.isDirected = isDirected;
+	}
 	
 	@Override
 	public void addNode(N node) {
@@ -21,7 +30,9 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 	public void addEdge(N from, N to, W weight) {
 		if(containsNode(from) && containsNode(to) && !containsEdge(from, to)) {
 			nodes.get(from).add(new WeightedEdge<N, W>(from, to, weight));
-			nodes.get(to).add(new WeightedEdge<N, W>(to, from, weight));
+			if(!isDirected) {
+				nodes.get(to).add(new WeightedEdge<N, W>(to, from, weight));
+			}
 		}
 	}
 
@@ -232,6 +243,11 @@ public class WeightedGraph<N, W> implements IWeightedGraph<N, W> {
 		return found;
 	}
 
+	@Override
+	public boolean isDirected() {
+		return isDirected;
+	}
+	
 	@Override
 	public Iterator<N> iterator() {
 		return getNodes().iterator();

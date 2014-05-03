@@ -9,6 +9,15 @@ import java.util.List;
 public class Graph<N> implements IGraph<N> {
 
 	public HashMap<N, LinkedList<Edge<N>>> nodes = new HashMap<N, LinkedList<Edge<N>>>();
+	public boolean isDirected;
+	
+	public Graph() {
+		this(false);
+	}
+	
+	public Graph(boolean isDirected) {
+		this.isDirected = isDirected;
+	}
 	
 	@Override
 	public void addNode(N node) {
@@ -21,7 +30,9 @@ public class Graph<N> implements IGraph<N> {
 	public void addEdge(N from, N to) {
 		if(containsNode(from) && containsNode(to) && !containsEdge(from, to)) {
 			nodes.get(from).add(new Edge<N>(from, to));
-			nodes.get(to).add(new Edge<N>(to, from));
+			if(!isDirected) {
+				nodes.get(to).add(new Edge<N>(to, from));
+			}
 		}
 	}
 
@@ -215,6 +226,11 @@ public class Graph<N> implements IGraph<N> {
 			}
 		}
 		return found;
+	}
+	
+	@Override
+	public boolean isDirected() {
+		return isDirected;
 	}
 
 	@Override

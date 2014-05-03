@@ -37,6 +37,8 @@ public interface IGraph<N> extends Iterable<N> {
 	public List<Edge<N>> edgesBetween(N to, N from);
 	
 	public boolean areConnected(N... nodes);
+	
+	public boolean isDirected();
 
 	public int size();
 

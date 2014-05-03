@@ -42,6 +42,8 @@ public interface IWeightedGraph<N, W> extends Iterable<N> {
 
 	public boolean areConnected(N... nodes);
 	
+	public boolean isDirected();
+	
 	public int size();
 
 	public boolean isEmpty();
