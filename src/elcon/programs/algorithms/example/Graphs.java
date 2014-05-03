@@ -1,5 +1,6 @@
 package elcon.programs.algorithms.example;
 
+import elcon.programs.algorithms.graph.BellmanFordAlgorithm;
 import elcon.programs.algorithms.graph.DijkstraAlgorithm;
 import elcon.programs.algorithms.graph.Graph;
 import elcon.programs.algorithms.graph.IWeightedGraph;
@@ -67,6 +68,10 @@ public class Graphs {
 		
 		DijkstraAlgorithm<Character> dijkstra = new DijkstraAlgorithm<Character>(weightedGraph2, 'A', 'E');
 		System.out.println(dijkstra.getPathString());
+		System.out.println();
+		
+		BellmanFordAlgorithm<Character> bellmanFord = new BellmanFordAlgorithm<Character>(weightedGraph2, 'A');
+		System.out.println(bellmanFord.getPathString('E'));
 		System.out.println();
 		
 		PrimAlgorithm<Character> prim = new PrimAlgorithm<Character>(weightedGraph2);

@@ -27,7 +27,7 @@ public class PrimAlgorithm<N> {
 		minimumGraph.addNode(graph.getNodes().get(0));
 		while(!minimumGraph.getNodes().containsAll(graph.getNodes())) {
 			List<WeightedEdge<N, Number>> edges = graph.edgesFrom(minimumGraph.getNodes().toArray((N[]) new Object[minimumGraph.getNodes().size()]));
-			double best = Double.POSITIVE_INFINITY;
+			double best = Double.MAX_VALUE;
 			WeightedEdge<N, Number> bestEdge = null;
 			for(WeightedEdge<N, Number> edge : edges) {
 				if(edge.weight.doubleValue() < best && !minimumGraph.containsNode(edge.to)) {

@@ -56,7 +56,7 @@ public class DijkstraAlgorithm<N> {
 		path = tempPath;
 	}
 	
-	public ArrayList<Node<N>> getPath() {
+	public List<Node<N>> getPath() {
 		return path;
 	}
 

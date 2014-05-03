@@ -11,7 +11,7 @@ public class KruskalAlgorithm<N> {
 	public KruskalAlgorithm(IGraph<N> graph) {
 		List<Edge<N>> edges = graph.getEdges();
 		ArrayList<Graph<N>> trees = new ArrayList<Graph<N>>();
-		for(N node : graph.getNodes()) {
+		for(N node : graph) {
 			Graph<N> tree = new Graph<N>();
 			tree.addNode(node);
 			trees.add(tree);
@@ -54,7 +54,7 @@ public class KruskalAlgorithm<N> {
 		List<WeightedEdge<N, Number>> edges = graph.getEdges();
 		Collections.sort(edges, new WeightedEdgeComparator<N>());
 		ArrayList<WeightedGraph<N, Number>> trees = new ArrayList<WeightedGraph<N, Number>>();
-		for(N node : graph.getNodes()) {
+		for(N node : graph) {
 			WeightedGraph<N, Number> tree = new WeightedGraph<N, Number>();
 			tree.addNode(node);
 			trees.add(tree);
