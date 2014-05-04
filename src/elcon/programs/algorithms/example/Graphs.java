@@ -2,6 +2,7 @@ package elcon.programs.algorithms.example;
 
 import elcon.programs.algorithms.graph.BellmanFordAlgorithm;
 import elcon.programs.algorithms.graph.DijkstraAlgorithm;
+import elcon.programs.algorithms.graph.FordFulkersonAlgorithm;
 import elcon.programs.algorithms.graph.Graph;
 import elcon.programs.algorithms.graph.IWeightedGraph;
 import elcon.programs.algorithms.graph.KruskalAlgorithm;
@@ -112,6 +113,41 @@ public class Graphs {
 		for(IWeightedGraph<Character, Number> tree : kruskal2.getMinimumWeightedGraphs()) {
 			System.out.println("Minimum Edges: " + tree.getEdges().size());
 		}
+		System.out.println();
+		
+		WeightedGraph<Character, Number> weightedDirectedGraph3 = new WeightedGraph<Character, Number>(true);
+		weightedDirectedGraph3.addNode('O');
+		weightedDirectedGraph3.addNode('P');
+		weightedDirectedGraph3.addNode('Q');
+		weightedDirectedGraph3.addNode('R');
+		weightedDirectedGraph3.addNode('S');
+		weightedDirectedGraph3.addNode('T');
+		weightedDirectedGraph3.addEdge('S', 'O', 3);
+		weightedDirectedGraph3.addEdge('S', 'P', 3);
+		weightedDirectedGraph3.addEdge('O', 'P', 2);
+		weightedDirectedGraph3.addEdge('O', 'Q', 3);
+		weightedDirectedGraph3.addEdge('P', 'R', 2);
+		weightedDirectedGraph3.addEdge('R', 'T', 3);
+		weightedDirectedGraph3.addEdge('Q', 'R', 4);
+		weightedDirectedGraph3.addEdge('Q', 'T', 2);
+		
+		FordFulkersonAlgorithm<Character> fordFulkerson = new FordFulkersonAlgorithm<Character>(weightedDirectedGraph3, 'S', 'T');
+		System.out.println(fordFulkerson.getMaxFlow());
+		System.out.println();
+		
+		WeightedGraph<Character, Number> weightedDirectedGraph4 = new WeightedGraph<Character, Number>(true);
+		weightedDirectedGraph4.addNode('A');
+		weightedDirectedGraph4.addNode('B');
+		weightedDirectedGraph4.addNode('C');
+		weightedDirectedGraph4.addNode('D');
+		weightedDirectedGraph4.addEdge('A', 'B', 1000);
+		weightedDirectedGraph4.addEdge('A', 'C', 1000);
+		weightedDirectedGraph4.addEdge('B', 'C', 1);
+		weightedDirectedGraph4.addEdge('B', 'D', 1000);
+		weightedDirectedGraph4.addEdge('C', 'D', 1000);
+		
+		FordFulkersonAlgorithm<Character> fordFulkerson2 = new FordFulkersonAlgorithm<Character>(weightedDirectedGraph4, 'A', 'D');
+		System.out.println(fordFulkerson2.getMaxFlow());
 		System.out.println();
 	}
 }
